@@ -6,15 +6,15 @@ FitForge is a mobile fitness app built with React Native & Expo that helps you b
 
 | Sign In | Sign Up | Home |
 |:---:|:---:|:---:|
-| ![Sign In](docs/screenshots/sign-in.png) | ![Sign Up](docs/screenshots/sign-up.png) | ![Home](docs/screenshots/home.png) |
+| ![Sign In](assets/sign-in.png) | ![Sign Up](assets/sign-up.png) | ![Home](assets/home.png) |
 
 | Exercises | Exercise Detail | Active Workout |
 |:---:|:---:|:---:|
-| ![Exercises](docs/screenshots/exercises.png) | ![Exercise Detail](docs/screenshots/exercise-detail.png) | ![Active Workout](docs/screenshots/active-workout.png) |
+| ![Exercises](assets/exercises.png) | ![Exercise Detail](assets/exercise-detail.png) | ![Active Workout](assets/active-workout.png) |
 
 | Schedule Workout | Profile |
 |:---:|:---:|
-| ![Schedule](docs/screenshots/schedule-workout.png) | ![Profile](docs/screenshots/profile.png) |
+| ![Schedule](assets/schedule-workout.png) | ![Profile](assets/profile.png) |
 
 ## Features
 
