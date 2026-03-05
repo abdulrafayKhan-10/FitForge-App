@@ -4,17 +4,29 @@ FitForge is a mobile fitness app built with React Native & Expo that helps you b
 
 ## Screenshots
 
-| Sign In | Sign Up | Home |
-|:---:|:---:|:---:|
-| ![Sign In](assets/sign-in.png) | ![Sign Up](assets/sign-up.png) | ![Home](assets/home.png) |
+### Light Theme
 
-| Exercises | Exercise Detail | Active Workout |
+| Login | Register | Home |
 |:---:|:---:|:---:|
-| ![Exercises](assets/exercises.png) | ![Exercise Detail](assets/exercise-detail.png) | ![Active Workout](assets/active-workout.png) |
+| ![Login](assets/light%20theme%20login.jpeg) | ![Register](assets/light%20theme%20register.jpeg) | ![Home](assets/light%20theme%20home.jpeg) |
 
-| Schedule Workout | Profile |
-|:---:|:---:|
-| ![Schedule](assets/schedule-workout.png) | ![Profile](assets/profile.png) |
+| Exercises | Exercise Detail | Workout |
+|:---:|:---:|:---:|
+| ![Exercises](assets/light%20theme%20exercises.jpeg) | ![Exercise Detail](assets/light%20theme%20exercise%20detail.jpeg) | ![Workout](assets/light%20theme%20workout.jpeg) |
+
+| Active Workout | Schedule Workout | Profile |
+|:---:|:---:|:---:|
+| ![Active Workout](assets/light%20theme%20workout%20active.jpeg) | ![Schedule Workout](assets/light%20theme%20schedule%20workout.jpeg) | ![Profile](assets/light%20theme%20profile.jpeg) |
+
+### Dark Theme
+
+| Login | Register | Home |
+|:---:|:---:|:---:|
+| ![Login Dark](assets/dark%20theme%20login.jpeg) | ![Register Dark](assets/dark%20theme%20register.jpeg) | ![Home Dark](assets/dark%20theme%20home.jpeg) |
+
+| Exercises | Workout | Profile |
+|:---:|:---:|:---:|
+| ![Exercises Dark](assets/dark%20theme%20exercises.jpeg) | ![Workout Dark](assets/dark%20theme%20workout.jpeg) | ![Profile Dark](assets/dark%20theme%20profile.jpeg) |
 
 ## Features
 
