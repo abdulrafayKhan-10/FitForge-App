@@ -22,11 +22,11 @@ FitForge is a mobile fitness app built with React Native & Expo that helps you b
 
 | Login | Register | Home |
 |:---:|:---:|:---:|
-| ![Login Dark](assets/dark%20theme%20login.jpeg) | ![Register Dark](assets/dark%20theme%20register.jpeg) | ![Home Dark](assets/dark%20theme%20home.jpeg) |
+| ![Login](assets/dark%20theme%20login.jpeg) | ![Register](assets/dark%20theme%20register.jpeg) | ![Home](assets/dark%20theme%20home.jpeg) |
 
 | Exercises | Workout | Profile |
 |:---:|:---:|:---:|
-| ![Exercises Dark](assets/dark%20theme%20exercises.jpeg) | ![Workout Dark](assets/dark%20theme%20workout.jpeg) | ![Profile Dark](assets/dark%20theme%20profile.jpeg) |
+| ![Exercises](assets/dark%20theme%20exercises.jpeg) | ![Workout](assets/dark%20theme%20workout.jpeg) | ![Profile](assets/dark%20theme%20profile.jpeg) |
 
 ## Features
 
