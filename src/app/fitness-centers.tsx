@@ -1,0 +1,100 @@
+import { View, Text, ActivityIndicator } from "react-native";
+import React, { useRef, useState, useEffect } from "react";
+import CustomButton from "@/shared/components/ui/CustomButton";
+import FitnessMap from "@/modules/fitness-centers/components/FitnessMap";
+import GymDetailsBottomSheet from "@/modules/fitness-centers/components/GymDetailsBottomSheet";
+import { Ionicons } from "@expo/vector-icons";
+import { useLocationPermission } from "@/modules/fitness-centers/hooks/useLocationPermission";
+import { BottomSheetModal } from "@gorhom/bottom-sheet";
+import { FitnessCenter } from "@/shared/types/requests";
+import { useQuery } from "@tanstack/react-query";
+import { searchNearbyFitnessCenters } from "@/modules/fitness-centers/services/placesService";
+
+export default function FitnessCenters() {
+  const { location, loading, error, requestLocation } = useLocationPermission();
+
+  const { data: fitnessCenters, isLoading: centersLoading } = useQuery({
+    queryKey: ["nearbyFitnessCenters", location],
+    queryFn: async (): Promise<FitnessCenter[]> =>
+      searchNearbyFitnessCenters({
+        location,
+      }),
+    enabled: !!location,
+    staleTime: 5 * 60 * 1000,
+  });
+
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+  const [selectedGym, setSelectedGym] = useState<any>(null);
+
+  useEffect(() => {
+    if (selectedGym) {
+      bottomSheetModalRef.current?.present();
+    }
+  }, [selectedGym]);
+
+  const handleGymPress = (center: any) => {
+    setSelectedGym(center);
+  };
+
+  const handleCloseBottomSheet = () => {
+    bottomSheetModalRef.current?.dismiss();
+    setSelectedGym(null);
+  };
+
+  if (loading)
+    return (
+      <View className="flex-1 justify-center items-center">
+        <ActivityIndicator size="large" color="#3b82f6" />
+      </View>
+    );
+
+  if (error)
+    return (
+      <View className="flex-1 justify-center items-center px-6">
+        <View className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-sm border border-gray-100 dark:border-gray-700 w-full max-w-sm">
+          <View className="items-center">
+            <View className="bg-red-100 dark:bg-red-900 rounded-full p-4 mb-4">
+              <Ionicons name="location-outline" size={32} color="#ef4444" />
+            </View>
+            <Text className="text-gray-900 dark:text-white font-lexend-semibold text-lg mb-2">
+              Location Required
+            </Text>
+            <View className="w-full space-y-3">
+              <CustomButton
+                title="Retry Location"
+                bgVariant="primary"
+                onPress={requestLocation}
+              />
+            </View>
+          </View>
+        </View>
+      </View>
+    );
+
+  return (
+    <View className="flex-1 bg-gray-50 dark:bg-gray-900">
+      {centersLoading && (
+        <View className="px-6 py-4 bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
+          <Text className="text-blue-600 text-center font-lexend-medium text-sm mt-2">
+            Searching for nearby gyms...
+          </Text>
+        </View>
+      )}
+      {/* Map View - Only render when location is available */}
+      {location ? (
+        <FitnessMap
+          userLocation={location}
+          fitnessCenters={fitnessCenters || []}
+          onFitnessCenterPress={handleGymPress}
+        />
+      ) : null}
+
+      {/* Gym Details Modal */}
+      <GymDetailsBottomSheet
+        ref={bottomSheetModalRef}
+        fitnessCenter={selectedGym}
+        onClose={handleCloseBottomSheet}
+      />
+    </View>
+  );
+}

@@ -1,0 +1,87 @@
+import { client } from "@/shared/services/sanity/client";
+import { GetWorkoutsQueryResult } from "@/shared/services/sanity/types";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { defineQuery } from "groq";
+import { saveWorkout } from "../services/workoutService";
+
+export const getWorkoutsQuery =
+  defineQuery(`*[_type == "workout" && userId == $userId] | order(date desc) {
+    _id,
+    status,
+    date,
+    duration,
+    title,
+    notes,
+    notificationSent,
+    calendarEventId,
+    exercises[] {
+      exercise->{
+        _id,
+        name
+      },
+      sets[] {
+        repetitions,
+        weight,
+        weightUnit,
+        _type,
+        _key
+      },
+      _type,
+      _key
+    }
+  }`);
+
+export const useGetWorkouts = (userId: string) => {
+  return useQuery({
+    queryKey: ["workouts", userId],
+    queryFn: async (): Promise<GetWorkoutsQueryResult> => {
+      const workouts = await client.fetch(getWorkoutsQuery, { userId });
+      return workouts;
+    },
+    staleTime: 5 * 60 * 1000,
+    enabled: !!userId,
+  });
+};
+
+export const useSaveWorkout = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: saveWorkout,
+    onSuccess: () => {
+      // Invalidate workout-related queries to refresh data
+      queryClient.invalidateQueries({ queryKey: ["workouts"] });
+    },
+  });
+};
+
+interface DeleteWorkoutParams {
+  workoutId: string;
+}
+
+export const useDeleteWorkout = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({ workoutId }: DeleteWorkoutParams) => {
+      const response = await fetch("/api/delete-workout", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ workoutId }),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || "Failed to delete workout");
+      }
+
+      return response.json();
+    },
+    onSuccess: (_, variables) => {
+      // Invalidate and refetch workout history
+      queryClient.invalidateQueries({ queryKey: ["workouts"] });
+    },
+  });
+};
